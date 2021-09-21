@@ -1,0 +1,283 @@
+<html>
+
+<head>
+    <title>Student registration form</title>
+    <script type="text/javascript">
+
+        function validatedate(inputText) {
+            //dd-mm-yyyy formate
+            var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+            //mm-dd-yyyy formate
+            // var dateformat =/^(0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])[\/\-]\d{4}$/;
+            
+            // Match the date format through regular expression
+            if (inputText.value.match(dateformat)) {
+                document.form1.text1.focus();
+
+                //Test which seperator is used '/' or '-'
+                var opera1 = inputText.value.split('/');
+                var opera2 = inputText.value.split('-');
+
+                lopera1 = opera1.length;
+                lopera2 = opera2.length;
+
+                // Extract the string into month, date and year
+                if (lopera1 > 1) {
+                    var pdate = inputText.value.split('/');
+                }
+                else if (lopera2 > 1) {
+                    var pdate = inputText.value.split('-');
+                }
+                var dd = parseInt(pdate[0]);
+                var mm = parseInt(pdate[1]);
+                var yy = parseInt(pdate[2]);
+
+                // Create list of days of a month [assume there is no leap year by default]
+                var ListofDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                if (mm == 1 || mm > 2) {
+                    if (dd > ListofDays[mm - 1]) {
+                        alert('Invalid date format!');
+                        return false;
+                    }
+                }
+                if (mm == 2) {
+                    var lyear = false;
+                    if ((!(yy % 4) && yy % 100) || !(yy % 400)) {
+                        lyear = true;
+                    }
+                    if ((lyear == false) && (dd >= 29)) {
+                        alert('Invalid date format!');
+                        return false;
+                    }
+                    if ((lyear == true) && (dd > 29)) {
+                        alert('Invalid date format!');
+                        return false;
+                    }
+                }
+            }
+            else {
+                alert("Invalid date format!");
+                document.f1.dob.value = "";
+                document.f1.dob.focus();
+                return false;
+            }
+        }
+
+        function validateEmpty() {
+            if (document.f1.fname.value == "" || document.f1.fname.value == null) {
+                alert("Enter valid fisrt name field !");
+                // document.f1.fname.value = "";
+                document.f1.fname.focus();
+                return false;
+            }
+            if (document.f1.lname.value == "" || document.f1.lname.value == null) {
+                alert("Enter valid last name field !");
+                // document.f1.lname.value = "";
+                document.f1.lname.focus();
+                return false;
+            }
+
+            // validatedate(document.f1.dob);
+
+            if(document.f1.gender.value==null){
+                alert("Select gender field!");
+                document.f1.gender.focus();
+                return false;
+            }
+
+            if(document.f1.address.value == ""){
+                alert("Enter address details !");
+                document.f1.address.focus();
+                return false;
+            }
+        }
+    </script>
+    <style>
+        #table1 {
+            background: linear-gradient(217deg, rgba(255, 0, 0, .8), rgba(255, 0, 0, 0) 70.71%),
+                linear-gradient(127deg, rgba(0, 255, 0, .8), rgba(0, 255, 0, 0) 70.71%),
+                linear-gradient(336deg, rgba(0, 0, 255, .8), rgba(0, 0, 255, 0) 70.71%);
+        }
+    </style>
+</head>
+
+<body>
+    <div align="center" style="border: 1px solid black;">
+        <form method="post" name="f1" action="#">
+            <BR>
+            <table id="table1" cellspacing="4px" cellpadding="1.5px" border="1.5px" width="60%">
+                <tr>
+                    <td colspan="2" align="center">
+                        <img src="istarlogo.png" alt="ISTAR LOGO" width="100%" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <h2>M.Sc. IT DEPARTMENT</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <u><b>
+                                <h2>STUDENT REGISTRATION FORM</h2>
+                            </b></u>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        First Name :
+                    </td>
+                    <td>
+                        <input type="text" name="fname" placeholder="first name" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" >
+                        Last Name :
+                    </td>
+                    <td>
+                        <input type="text" name="lname" placeholder="last name" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" >
+                        Birth Date :
+                    </td>
+                    <td>
+                        <!-- <input type="date" name="dob" placeholder="dd-mm-yyyy" min="1997-01-01" max="2030-12-31"/> -->
+                        <input type="text" name="dob" placeholder="dd/mm/yyyy" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" >
+                        Gender :
+                    </td>
+                    <td>
+                        <input type="radio" name="gender" value="male" /> Male
+                        <input type="radio" name="gender" value="female" /> Female
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" >
+                        Address :
+                    </td>
+                    <td>
+                        <textarea name="address" placeholder="address"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        City :
+                    </td>
+                    <td>
+                        <input type="text" name="city" placeholder="city" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        Pincode :
+                    </td>
+                    <td>
+                        <input type="text" name="pincode" maxlength="6"
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        State :
+                    </td>
+                    <td>
+                        <input type="text" name="state" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        Country :
+                    </td>
+                    <td>
+                        <input type="text" name="country" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" >
+                        Hobbies :
+                    </td>
+                    <td>
+                        Singing <input type="checkbox" name="singer" value="singer" />
+                        Playing <input type="checkbox" name="playing" value="playing" />
+                        Dancing <input type="checkbox" name="dancing" value="dancing" />
+                        Other <input type="checkbox" name="other" />
+                        <input type="text" name="other" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        Qualification :
+                    </td>
+                    <td>
+                        <table cellpadding="1.5px" border="1.5px">
+                            <tr>
+                                <th>SR.NO</th>
+                                <th>EXAMINATION</th>
+                                <th>BOARD</th>
+                                <th>PERCENTAGE</th>
+                                <th>YEAR OF PASSING</th>
+                            </tr>
+                            <tr>
+                                <td align="center">1.</td>
+                                <td>Class X</td>
+                                <td><input type="text" name="classXBoard" /></td>
+                                <td><input type="text" name="classXPercentage" /></td>
+                                <td><input type="text" name="classXPassing" /></td>
+                            </tr>
+                            <tr>
+                                <td align="center">2.</td>
+                                <td>Class XII</td>
+                                <td><input type="text" name="classXIIBoard" /></td>
+                                <td><input type="text" name="classXIIPercentage" /></td>
+                                <td><input type="text" name="classXIIPassing" /></td>
+                            </tr>
+                            <tr>
+                                <td align="center">3.</td>
+                                <td>Graduation</td>
+                                <td><input type="text" name="gradBoard" /></td>
+                                <td><input type="text" name="gradPercentage" /></td>
+                                <td><input type="text" name="gradPassing" /></td>
+                            </tr>
+                            <tr>
+                                <td align="center">4.</td>
+                                <td>Master</td>
+                                <td><input type="text" name="masterBoard" /></td>
+                                <td><input type="text" name="masterPercentage" /></td>
+                                <td><input type="text" name="masterPassing" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" >
+                        Course :
+                    </td>
+                    <td >
+                        B.Sc <input type="checkbox" name="bsc" />
+                        M.Sc <input type="checkbox" name="msc" />
+                        BCA <input type="checkbox" name="bca" />
+                        MCA <input type="checkbox" name="bca" />
+                    </td>
+                </tr>
+                <tr>
+                    <td >
+
+                    </td>
+                    <td align="center">
+                        <button type="submit" name="submit" onclick="return validateEmpty()">Submit</button> 
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="reset" name="reset" value="reset">Reset</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>
