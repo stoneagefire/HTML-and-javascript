@@ -1,0 +1,374 @@
+<html>
+
+<head>
+    <title>
+        Registration Form
+    </title>
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        table {
+            border-spacing: 4px;
+            /* background-image: linear-gradient(rgb(95, 221, 243), rgb(171, 38, 248)) */
+            /*background-image: linear-gradient(135deg, rgb(28, 221, 255), rgb(98, 248, 38))*/
+            /* background-image: linear-gradient(rgb(95, 221, 243), rgb(98, 248, 38)) */
+        }
+
+        #txt1 {
+            color: red;
+            font-weight: bold;
+        }
+
+        #btn1 {
+            background-color: green;
+            width: 200px;
+        }
+    </style>
+
+    <script>
+
+        function onlyNumberKey(evt) {
+
+            var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                return false;
+            return true;
+        }
+
+        function dateValidation(inputText) {
+            var dateFormate = /^(0?[1-9] | [12] [0-9] | 3[01]) | [\/\-] \0?[1-9]| 1[012]) [\/\-] \ d {4} $/;
+            if (inputText.value.match(dateFormate)) {
+                document.f1.dob.focus();
+
+                var opr1 = inputText.value.split('/');
+                var opr2 = inputText.value.split('-');
+
+                lopr1 = opr1.length;
+                lopr2 = opr2.length;
+
+                if (lopr1 > 1) {
+                    var pdate = inputText.value.split('/');
+                }
+                else if (lopr2 > 1) {
+                    var pdate = inputText.value.split('-');
+                }
+
+                var dd = ParseInt(pdate[0]);
+                var mm = ParseInt(pdate[1]);
+                var yy = ParseInt(pdate[2]);
+
+                var ListofDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                if (mm == 1 || mm > 2) {
+                    if (dd > ListofDays[mm - 1]) {
+                        alert('Invalid date format!');
+                        return false;
+                    }
+                }
+                if (mm == 2) {
+                    var lyear = false;
+                    if ((!(yy % 4) && yy % 100) || !(yy % 400)) {
+                        lyear = true;
+                    }
+                    if ((lyear == false) && (dd >= 29)) {
+                        alert('Invalid date format!');
+                        return false;
+                    }
+                    if ((lyear == true) && (dd > 29)) {
+                        alert('Invalid date format!');
+                        return false;
+                    }
+                }
+            }
+            else {
+                alert("Invalid date format!");
+                document.f1.dob.value = "";
+                document.f1.dob.focus();
+                return false;
+            }
+
+        }
+
+        function validateEmpty() {
+            var firstName = document.forms["f1"]["fname"].value;
+            var lastName = document.forms["f1"]["lname"].value;
+            var birthDate = document.forms["f1"]["dob"].value;
+            var addressValue = document.forms["f1"]["address"].value;
+            var comboCity = document.forms["f1"]["city1"].value;
+            var comboState = document.forms["f1"]["state"].value;
+            var comboCountry = document.forms["f1"]["country"].value;
+            var genderValue = document.getElementsByName('gender');
+            var courseValue = document.getElementsByName('course');
+            var pincode = document.forms["f1"]["pincode"].value;
+            var hobbyValue = document.getElementsByName('c1');
+            var otherHobbyValue = document.forms["f1"]["othercheck"].value;
+
+            if (firstName == "") {
+                alert("Enter first name field");
+                return false;
+            }
+            if (lastName == "") {
+                alert("Enter last name field");
+                return false;
+            }
+            if (birthDate == "") {
+                alert("Enter birth date field");
+                return false;
+            }
+            if (genderValue[0].checked == false && genderValue[1].checked == false) {
+                alert("Select Gender");
+                return false;
+            }
+            if (addressValue == "") {
+                alert("Enter address field ");
+                return false;
+            }
+            if (comboCity == "choose") {
+                alert("Select appropriate city");
+                return false;
+            }
+            if (comboState == "choose") {
+                alert("Select appropriate state");
+                return false;
+            }
+            if (comboCountry == "choose") {
+                alert("Select appropriate state");
+                return false;
+            }
+            var ct2 = 0;
+            for (var i = 0; i < 4; i++) {
+                if (courseValue[i].checked == false) {
+                    ct2 = ct2 + 1;
+                }
+            }
+            if (ct2 == 4) {
+                alert("Select any one course");
+                return false;
+            }
+
+            if (pincode.length != 6) {
+                alert("enter valid pincode");
+                return false;
+            }
+
+            var ct3 = 0;
+            for (var i = 0; i<4; i++){
+                if(hobbyValue[i].checked==false){
+                    ct3 = ct3 + 1;
+                }
+            }
+            if(ct3==4){
+                alert("Select any one hobby");
+                return false;
+            }
+            if(hobbyValue[3].checked==true){
+                if(otherHobbyValue == ""){
+                    alert("Enter your hobby name");
+                    return false;
+                }
+            }
+
+        }
+    </script>
+
+</head>
+
+<body>
+    <center>
+        <form name="f1" method="post" action="#">
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <img src="E:\Web Programming\Prg10\istar.png" alt="Girl in a jacket" width="1000" height="150">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <h3>M.Sc IT DEPARTMENT</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <h3><u>STUDENT REGISTRATION FORM</u></h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="txt1">
+                        FIRST NAME
+                    </td>
+                    <td>
+                        <input type="text" name="fname" />
+                    </td>
+                </tr>
+                <tr>
+                    <td id="txt1">
+                        LAST NAME :
+                    </td>
+                    <td>
+                        <input type="text" name="lname" />
+                    </td>
+                </tr>
+                <tr>
+                    <td id="txt1">
+                        BIRTH DAY
+                    </td>
+                    <td>
+                        <input type="text" placeholder="dd-mm-yyyy" name="dob"
+                            onsubmit="dateValidation(document.f1.dob.value)" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td id="txt1">
+                        ADDRESS:
+                    </td>
+                    <td>
+                        <textarea name="address" placeholder="Enter Address here...." cols="25" rows="4"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="txt1">
+                        CITY :
+                    </td>
+                    <td>
+                        <select name="city1">
+                            <option value="choose">choose city</option>
+                            <option value="anand">Anand</option>
+                            <option value="vadodara">Vadodara</option>
+                            <option value="mumbai">Mumbai</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="txt1">
+                        STATE :
+                    </td>
+                    <td>
+                        <select name="state">
+                            <option value="choose">choose state</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Dehli">Dehli</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="txt1">
+                        COUNTRY :
+                    </td>
+                    <td>
+                        <select name="country">
+                            <option value="choose">choose country</option>
+                            <option value="india">India</option>
+                            <option value="spain">Spain</option>
+                            <option value="brazil">Brazil</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="txt1">
+                        GENDER :
+                    </td>
+                    <td>
+                        <input type="radio" name="gender" value="male"> Male<br>
+                        <input type="radio" name="gender" value="female"> Female
+                    </td>
+                </tr>
+                <tr>
+                    <td id="txt1">
+                        COURSE :
+                    </td>
+                    <td>
+                        B.Sc <input type="checkbox" name="course" value="B.Sc">
+                        M.Sc <input type="checkbox" name="course" value="M.Sc">
+                        BCA <input type="checkbox" name="course" value="BCA">
+                        MCA <input type="checkbox" name="course" value="MCA">
+                    </td>
+                </tr>
+                <tr>
+                    <td id="txt1">
+                        PINCODE :
+                    </td>
+                    <td>
+                        <input type="text" placeholder="Enter Pincode" name="pincode"
+                            onkeypress="return onlyNumberKey(event)" />
+                    </td>
+                </tr>
+                <tr>
+                    <td id="txt1">
+                        HOBBIES :
+                    </td>
+                    <td>
+                        Singing <input type="checkbox" name="c1" value="singing">
+                        Playing <input type="checkbox" name="c1" value="playing">
+                        Dancing <input type="checkbox" name="c1" value="dancing">
+                        Others <input type="checkbox" name="c1" value="others">
+                        <input type="text" name="othercheck" />
+                    </td>
+                </tr>
+                <tr>
+                    <td id="txt1">
+                        QUALIFICATION :
+                    </td>
+                    <td>
+                        <table style="padding: 0.5px; border-spacing: 2px;">
+                            <tr>
+                                <th id="txt1">SR.No</th>
+                                <th id="txt1">EXAMINATION</th>
+                                <th id="txt1">BOARD</th>
+                                <th id="txt1">PERCENTAGE</th>
+                                <th id="txt1">YEAR OF PASSING</th>
+                            </tr>
+                            <tr id="txt1">
+                                <td>1.</td>
+                                <td>Class X</td>
+                                <td><input type="text" /></td>
+                                <td><input type="text" onkeypress="return onlyNumberKey(event)"/></td>
+                                <td><input type="text" onkeypress="return onlyNumberKey(event)"/></td>
+                            </tr>
+                            <tr id="txt1">
+                                <td>2.</td>
+                                <td>Class XII</td>
+                                <td><input type="text" /></td>
+                                <td><input type="text" onkeypress="return onlyNumberKey(event)"/></td>
+                                <td><input type="text" onkeypress="return onlyNumberKey(event)"/></td>
+                            </tr>
+                            <tr id="txt1">
+                                <td>3.</td>
+                                <td>Graduation</td>
+                                <td><input type="text" /></td>
+                                <td><input type="text" onkeypress="return onlyNumberKey(event)"/></td>
+                                <td><input type="text" onkeypress="return onlyNumberKey(event)"/></td>
+                            </tr>
+                            <tr id="txt1">
+                                <td>4.</td>
+                                <td>Master</td>
+                                <td><input type="text" /></td>
+                                <td><input type="text" onkeypress="return onlyNumberKey(event)"/></td>
+                                <td><input type="text" onkeypress="return onlyNumberKey(event)"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                    </td>
+                    <td align="center">
+                        <button type="submit" name="submit" id="btn1"
+                            onclick="return validateEmpty()">Submit</button>&nbsp;&nbsp;
+                        <input type="reset" value="Reset" id="btn1">
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    </center>
+</body>
+
+</html>
